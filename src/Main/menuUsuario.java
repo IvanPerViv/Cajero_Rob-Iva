@@ -1,12 +1,19 @@
 package Main;
 
-import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.*;
 
-public class menuUsuario extends javax.swing.JFrame {
+public class menuUsuario extends JFrame {
+    
+    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    Date date = new Date();
+    final String mensaje = "Hora actual: ";
     
     public menuUsuario() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);    
+        jHoraFecha.setText(mensaje + formatter.format(date));
     }
 
     
@@ -82,7 +89,7 @@ public class menuUsuario extends javax.swing.JFrame {
 
         jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("NOMBRE EMPRESA");
+        jLabel19.setText("BANCO ROVAN");
         jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 360, 40));
 
         getContentPane().add(jMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, -1));
@@ -128,7 +135,6 @@ public class menuUsuario extends javax.swing.JFrame {
         jHoraFecha.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jHoraFecha.setForeground(new java.awt.Color(153, 153, 153));
         jHoraFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jHoraFecha.setText("Ultimo ingreso: <FECHA>, <HORA>");
         jPanelUsuario.add(jHoraFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 220, 20));
 
         jPagosImpuestosDevol.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
@@ -206,6 +212,11 @@ public class menuUsuario extends javax.swing.JFrame {
 
         jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
         jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jVolverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jVolverMenuMouseClicked(evt);
+            }
+        });
         jPanelUsuario.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 30, 30));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -282,7 +293,9 @@ public class menuUsuario extends javax.swing.JFrame {
         int mensaje = JOptionPane.YES_OPTION;
         int resultado = JOptionPane.showConfirmDialog(this, "¿Desea cerrar sesion?", "Salir", mensaje);
         if (resultado == 0) {
-            System.exit(0);
+            this.setVisible(false);
+            dispose();
+            new menuMainCajero().setVisible(true);
         }
     }//GEN-LAST:event_jCerrarVentanaMouseClicked
 
@@ -292,9 +305,14 @@ public class menuUsuario extends javax.swing.JFrame {
 
     private void jConsultaSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConsultaSaldoMouseClicked
         // BOTON CONSULTA DE SALDO.
-        menuConsultaSaldo a = new menuConsultaSaldo();
-        a.setVisible(true);
+        new menuConsultaSaldo().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jConsultaSaldoMouseClicked
+
+    private void jVolverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVolverMenuMouseClicked
+        new menuMainCajero().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jVolverMenuMouseClicked
 
     
     public static void main(String args[]) {

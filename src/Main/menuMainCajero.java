@@ -1,5 +1,7 @@
 package Main;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
 import javax.swing.JOptionPane;
 import utils.Slide;
 
@@ -9,7 +11,8 @@ import utils.Slide;
  */
 public class menuMainCajero extends javax.swing.JFrame {
 
-    private Slide slide;
+    protected Slide slide;
+    protected int x, y;
 
     public menuMainCajero() {
         initComponents();
@@ -20,26 +23,25 @@ public class menuMainCajero extends javax.swing.JFrame {
     /**
      * Metodos para mover los paneles de login ADMIN
      */
-    public void moverPanelAdminArriba() {
+    protected void moverPanelAdminArriba() {
         slide.jPanelXDerecha(390, 800, 10, 5, jLogo);
         slide.jPanelYArriba(340, 50, 10, 5, jMenuAdmin);
     }
-    
-    public void moverPanelAdminAbajo() {
+
+    protected void moverPanelAdminAbajo() {
         slide.jPanelXIzquierda(800, 390, 10, 5, jLogo);
         slide.jPanelYAbajo(50, 340, 10, 5, jMenuAdmin);
     }
 
-    
     /**
      * Metodos para mover los paneles de login USER.
      */
-    public void moverPanelUsuarioArriba() {
+    protected void moverPanelUsuarioArriba() {
         slide.jPanelYAbajo(50, 340, 10, 5, jLogin);
         slide.jPanelYArriba(340, 50, 10, 5, jTarjetaCliente);
     }
-    
-    public void moverPanelUsuarioAbajo() {
+
+    protected void moverPanelUsuarioAbajo() {
         slide.jPanelYAbajo(50, 340, 10, 5, jTarjetaCliente);
         slide.jPanelYArriba(340, 50, 10, 5, jLogin);
     }
@@ -57,7 +59,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
+        jUserValidacion = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -77,7 +79,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jMenuAdmin = new javax.swing.JPanel();
         jUserAdmin = new javax.swing.JTextField();
         jPass = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jBotonAccesoAdmin = new javax.swing.JButton();
         jVolverAtras = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -97,14 +99,26 @@ public class menuMainCajero extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(800, 340));
         setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jMenu.setBackground(new java.awt.Color(204, 0, 0));
         jMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jMenu.setForeground(new java.awt.Color(204, 0, 0));
+        jMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
         jMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-cerrar-ventana-50.png"))); // NOI18N
+        jCerrarVentana.setToolTipText("Cerrar ventana.");
         jCerrarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jCerrarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -114,6 +128,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jMenu.add(jCerrarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, -1, -1));
 
         jMinimizarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-minimizar-la-ventana-50.png"))); // NOI18N
+        jMinimizarVentana.setToolTipText("Minimizar ventana.");
         jMinimizarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMinimizarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,8 +139,9 @@ public class menuMainCajero extends javax.swing.JFrame {
 
         jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("NOMBRE EMPRESA");
-        jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 360, 40));
+        jLabel19.setText("BANCO ROVAN");
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 260, 40));
 
         getContentPane().add(jMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
@@ -151,13 +167,18 @@ public class menuMainCajero extends javax.swing.JFrame {
         jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
         jTarjetaCliente.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 200, 30));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 0, 0));
-        jButton2.setText("IDENTIFICAR");
-        jButton2.setBorderPainted(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jTarjetaCliente.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 200, 30));
+        jUserValidacion.setBackground(new java.awt.Color(255, 255, 255));
+        jUserValidacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jUserValidacion.setForeground(new java.awt.Color(204, 0, 0));
+        jUserValidacion.setText("IDENTIFICAR");
+        jUserValidacion.setBorderPainted(false);
+        jUserValidacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jUserValidacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUserValidacionActionPerformed(evt);
+            }
+        });
+        jTarjetaCliente.add(jUserValidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 200, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -295,13 +316,18 @@ public class menuMainCajero extends javax.swing.JFrame {
         jPass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jMenuAdmin.add(jPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 180, 30));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (2).png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jButton1.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jMenuAdmin.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 60, 50));
+        jBotonAccesoAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (2).png"))); // NOI18N
+        jBotonAccesoAdmin.setContentAreaFilled(false);
+        jBotonAccesoAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBotonAccesoAdmin.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
+        jBotonAccesoAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
+        jBotonAccesoAdmin.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
+        jBotonAccesoAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBotonAccesoAdminActionPerformed(evt);
+            }
+        });
+        jMenuAdmin.add(jBotonAccesoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 60, 50));
 
         jVolverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
         jVolverAtras.setToolTipText("Volver...");
@@ -314,7 +340,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jMenuAdmin.add(jVolverAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 30, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 2, true));
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setBackground(new java.awt.Color(204, 0, 0));
@@ -355,7 +381,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(141, 108, 159));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("NOMBRE EMPRESA");
+        jLabel2.setText("BANCO ROVAN");
         jLogo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 300, -1));
 
         jLabel21.setBackground(new java.awt.Color(255, 255, 255));
@@ -407,7 +433,7 @@ public class menuMainCajero extends javax.swing.JFrame {
 
     private void jBotonAccesoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAccesoClienteActionPerformed
         //BOTON USUARIO
-        moverPanelUsuarioArriba();      
+        moverPanelUsuarioArriba();
     }//GEN-LAST:event_jBotonAccesoClienteActionPerformed
 
     private void jVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVolverMouseClicked
@@ -418,12 +444,29 @@ public class menuMainCajero extends javax.swing.JFrame {
         moverPanelAdminAbajo();
     }//GEN-LAST:event_jVolverAtrasMouseClicked
 
+    private void jUserValidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUserValidacionActionPerformed
+        // BOTON ACCESO USUARIO 
+        new menuUsuario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jUserValidacionActionPerformed
+
+    private void jBotonAccesoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAccesoAdminActionPerformed
+        //BOTON ACCESO ADMINISTRADOR
+        new menuAdmin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBotonAccesoAdminActionPerformed
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - x, point.y - y);
+    }//GEN-LAST:event_formMouseDragged
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -440,23 +483,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(menuMainCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new menuMainCajero().setVisible(true);
@@ -465,10 +492,9 @@ public class menuMainCajero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBotonAccesoAdmin;
     private javax.swing.JButton jBotonAccesoCliente;
     private javax.swing.JButton jBotonAdmin;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jCerrarVentana;
     private javax.swing.JPanel jFondoAdmin;
     private javax.swing.JPanel jFondoLogin;
@@ -506,6 +532,7 @@ public class menuMainCajero extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jUserAdmin;
+    private javax.swing.JButton jUserValidacion;
     private javax.swing.JLabel jVolver;
     private javax.swing.JLabel jVolverAtras;
     // End of variables declaration//GEN-END:variables
