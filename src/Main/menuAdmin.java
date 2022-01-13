@@ -24,9 +24,8 @@ public class menuAdmin extends javax.swing.JFrame {
         jFondoCuadrado1 = new javax.swing.JLabel();
         fondo1 = new javax.swing.JButton();
         fondo2 = new javax.swing.JButton();
-        jVolverMenu = new javax.swing.JLabel();
+        jVolverMenu2 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        fondo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -58,7 +57,7 @@ public class menuAdmin extends javax.swing.JFrame {
         });
         jMenu.add(jMinimizarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("ADMIN_");
         jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 360, 40));
@@ -112,27 +111,20 @@ public class menuAdmin extends javax.swing.JFrame {
         fondo2.setEnabled(false);
         jPanel1.add(fondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 420, 100));
 
-        jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
-        jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jVolverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        jVolverMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-50.png"))); // NOI18N
+        jVolverMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jVolverMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jVolverMenuMouseClicked(evt);
+                jVolverMenu2MouseClicked(evt);
             }
         });
-        jPanel1.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, 30, 30));
+        jPanel1.add(jVolverMenu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 50, 50));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(204, 0, 0));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("VOLVER...");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 70, -1));
-
-        fondo.setBackground(new java.awt.Color(204, 0, 0));
-        fondo.setForeground(new java.awt.Color(204, 0, 0));
-        fondo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        fondo.setBorderPainted(false);
-        fondo.setEnabled(false);
-        jPanel1.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 70, 60));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 70, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 380));
 
@@ -153,50 +145,14 @@ public class menuAdmin extends javax.swing.JFrame {
         setState(menuMainCajero.ICONIFIED);
     }//GEN-LAST:event_jMinimizarVentanaMouseClicked
 
-    private void jVolverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVolverMenuMouseClicked
+    private void jVolverMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVolverMenu2MouseClicked
         // BOTON VOLVER MENU USUARIO.
         new menuMainCajero().setVisible(true);
-        this.setVisible(false);
+        setVisible(false);
         dispose();
-    }//GEN-LAST:event_jVolverMenuMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new menuAdmin().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_jVolverMenu2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton fondo;
     private javax.swing.JButton fondo1;
     private javax.swing.JButton fondo2;
     private javax.swing.JButton jButton1;
@@ -210,5 +166,7 @@ public class menuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jMinimizarVentana;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jVolverMenu;
+    private javax.swing.JLabel jVolverMenu1;
+    private javax.swing.JLabel jVolverMenu2;
     // End of variables declaration//GEN-END:variables
 }

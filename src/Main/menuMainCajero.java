@@ -1,18 +1,26 @@
 package Main;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
+import java.awt.*;
+import java.io.*;
+import java.sql.*;
+import java.util.Properties;
 import javax.swing.JOptionPane;
 import utils.Slide;
 
 /**
- *
+ * Tupla BBDD convertida en objeto.
  * @author Iván y Roberto.
  */
 public class menuMainCajero extends javax.swing.JFrame {
 
     protected Slide slide;
-    protected int x, y;
+    protected final String rutaProperties = "./src/Main/config.properties";
+    protected final String queryTarjeta = "SELECT * FROM usuarios where usuario = ? AND contraseya = ?";
+    protected final String url = cargaProperties("url");
+    protected final String user = cargaProperties("username");
+    protected final String pass = cargaProperties("pass");
+    protected Movimiento mov;
+
 
     public menuMainCajero() {
         initComponents();
@@ -45,6 +53,20 @@ public class menuMainCajero extends javax.swing.JFrame {
         slide.jPanelYAbajo(50, 340, 10, 5, jTarjetaCliente);
         slide.jPanelYArriba(340, 50, 10, 5, jLogin);
     }
+    
+    
+    protected String cargaProperties(String valueProperties) {
+        Properties prop = new Properties();
+        String valor = "";
+        try (FileInputStream input = new FileInputStream(rutaProperties)){        
+            prop.load(input);
+            valor = prop.getProperty(valueProperties);
+
+        } catch (IOException ex) {
+            System.err.println("No se pudo abrir el fichero de properties");
+        }
+        return valor;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -55,19 +77,17 @@ public class menuMainCajero extends javax.swing.JFrame {
         jMinimizarVentana = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jTarjetaCliente = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        numeroTarjeta = new javax.swing.JTextField();
+        jPassW = new javax.swing.JPasswordField();
         jUserValidacion = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jVolver = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLogin = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -79,7 +99,6 @@ public class menuMainCajero extends javax.swing.JFrame {
         jMenuAdmin = new javax.swing.JPanel();
         jUserAdmin = new javax.swing.JTextField();
         jPass = new javax.swing.JTextField();
-        jBotonAccesoAdmin = new javax.swing.JButton();
         jVolverAtras = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -87,6 +106,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        botonAdmin = new javax.swing.JButton();
         jLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -99,22 +119,22 @@ public class menuMainCajero extends javax.swing.JFrame {
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(800, 340));
         setResizable(false);
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                formMouseDragged(evt);
-            }
-        });
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                formMousePressed(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jMenu.setBackground(new java.awt.Color(204, 0, 0));
         jMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jMenu.setForeground(new java.awt.Color(204, 0, 0));
         jMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        jMenu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jMenuMouseDragged(evt);
+            }
+        });
+        jMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuMousePressed(evt);
+            }
+        });
         jMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-cerrar-ventana-50.png"))); // NOI18N
@@ -137,11 +157,11 @@ public class menuMainCajero extends javax.swing.JFrame {
         });
         jMenu.add(jMinimizarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("BANCO ROVAN");
         jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 260, 40));
+        jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 290, 40));
 
         getContentPane().add(jMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
 
@@ -151,21 +171,13 @@ public class menuMainCajero extends javax.swing.JFrame {
         jTarjetaCliente.setPreferredSize(new java.awt.Dimension(340, 230));
         jTarjetaCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(153, 153, 153));
-        jTarjetaCliente.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 200, 30));
+        numeroTarjeta.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        numeroTarjeta.setForeground(new java.awt.Color(153, 153, 153));
+        jTarjetaCliente.add(numeroTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 200, 30));
 
-        jTextField3.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(153, 153, 153));
-        jTarjetaCliente.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 200, 30));
-
-        jTextField4.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(153, 153, 153));
-        jTarjetaCliente.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 200, 30));
-
-        jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTarjetaCliente.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 200, 30));
+        jPassW.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jPassW.setForeground(new java.awt.Color(153, 153, 153));
+        jTarjetaCliente.add(jPassW, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 200, 30));
 
         jUserValidacion.setBackground(new java.awt.Color(255, 255, 255));
         jUserValidacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -178,31 +190,12 @@ public class menuMainCajero extends javax.swing.JFrame {
                 jUserValidacionActionPerformed(evt);
             }
         });
-        jTarjetaCliente.add(jUserValidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 200, 30));
+        jTarjetaCliente.add(jUserValidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 200, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Nº de Tarjeta");
-        jTarjetaCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 30));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Caducidad");
-        jTarjetaCliente.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 30));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("CVS");
-        jTarjetaCliente.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 90, 30));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("PIN");
-        jTarjetaCliente.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 90, 30));
+        jLabel4.setText("Nº de Tarjeta: ");
+        jTarjetaCliente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, -1, 30));
 
         jVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
         jVolver.setToolTipText("Volver...");
@@ -229,6 +222,18 @@ public class menuMainCajero extends javax.swing.JFrame {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, -1));
 
         jTarjetaCliente.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 50));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("PIN:");
+        jTarjetaCliente.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 90, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-introducir-pin-50.png"))); // NOI18N
+        jTarjetaCliente.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-tarjeta-en-uso-50.png"))); // NOI18N
+        jTarjetaCliente.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
 
         getContentPane().add(jTarjetaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 390, 290));
 
@@ -316,19 +321,6 @@ public class menuMainCajero extends javax.swing.JFrame {
         jPass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jMenuAdmin.add(jPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 180, 30));
 
-        jBotonAccesoAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (2).png"))); // NOI18N
-        jBotonAccesoAdmin.setContentAreaFilled(false);
-        jBotonAccesoAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBotonAccesoAdmin.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jBotonAccesoAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jBotonAccesoAdmin.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-accede-redondeado-derecho-50 (3).png"))); // NOI18N
-        jBotonAccesoAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonAccesoAdminActionPerformed(evt);
-            }
-        });
-        jMenuAdmin.add(jBotonAccesoAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, 60, 50));
-
         jVolverAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
         jVolverAtras.setToolTipText("Volver...");
         jVolverAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -367,6 +359,19 @@ public class menuMainCajero extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("USUARIO:");
         jMenuAdmin.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 180, 30));
+
+        botonAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        botonAdmin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        botonAdmin.setForeground(new java.awt.Color(204, 0, 0));
+        botonAdmin.setText("IDENTIFICAR");
+        botonAdmin.setBorderPainted(false);
+        botonAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAdminActionPerformed(evt);
+            }
+        });
+        jMenuAdmin.add(botonAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 180, 30));
 
         getContentPane().add(jMenuAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 410, 290));
 
@@ -427,12 +432,13 @@ public class menuMainCajero extends javax.swing.JFrame {
     }//GEN-LAST:event_jMinimizarVentanaMouseClicked
 
     private void jBotonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAdminActionPerformed
-        //BOTON ADMINISTRADOR
+        //BOTON DESPLEGABLE ADMINISTRADOR
         moverPanelAdminArriba();
+        
     }//GEN-LAST:event_jBotonAdminActionPerformed
 
     private void jBotonAccesoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAccesoClienteActionPerformed
-        //BOTON USUARIO
+        //BOTON DESPLEGABLE USUARIO
         moverPanelUsuarioArriba();
     }//GEN-LAST:event_jBotonAccesoClienteActionPerformed
 
@@ -446,25 +452,49 @@ public class menuMainCajero extends javax.swing.JFrame {
 
     private void jUserValidacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUserValidacionActionPerformed
         // BOTON ACCESO USUARIO 
-        new menuUsuario().setVisible(true);
-        dispose();
+//        try (Connection con = DriverManager.getConnection(url);
+//                var pst = con.prepareStatement(queryLogin)) {
+//
+//            String numeroTar = numeroTarjeta.getText();
+//            String pass = String.valueOf(jPassW.getPassword());
+//
+//            pst.setString(1, numeroTar);
+//            pst.setString(2, pass);
+//
+//            try (var rs = pst.executeQuery()) {
+//                if (rs.next()) {
+                    new menuUsuario().setVisible(true);
+                    dispose();
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+//                }
+//            } catch (SQLException ex) {
+//                System.err.println("Error al ejecutar la consulta!!" + ex.toString());
+//            }
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(this, "No he podido conectar a la BBDD" + ex.toString());
+//        }
+
+
     }//GEN-LAST:event_jUserValidacionActionPerformed
 
-    private void jBotonAccesoAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAccesoAdminActionPerformed
-        //BOTON ACCESO ADMINISTRADOR
+    private void botonAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAdminActionPerformed
+        // BOTON ACCESO ADMIN 
         new menuAdmin().setVisible(true);
         dispose();
-    }//GEN-LAST:event_jBotonAccesoAdminActionPerformed
+    }//GEN-LAST:event_botonAdminActionPerformed
 
-    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        x = evt.getX();
-        y = evt.getY();
-    }//GEN-LAST:event_formMousePressed
+    private void jMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuMousePressed
+        mov = new Movimiento(evt);
+    }//GEN-LAST:event_jMenuMousePressed
 
-    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+    private void jMenuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuMouseDragged
+        int cordX = mov.x;
+        int cordY = mov.y;
         Point point = MouseInfo.getPointerInfo().getLocation();
-        setLocation(point.x - x, point.y - y);
-    }//GEN-LAST:event_formMouseDragged
+        setLocation(point.x - cordX, point.y - cordY);
+    }//GEN-LAST:event_jMenuMouseDragged
 
     public static void main(String args[]) {
         try {
@@ -483,7 +513,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(menuMainCajero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new menuMainCajero().setVisible(true);
@@ -492,14 +522,13 @@ public class menuMainCajero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBotonAccesoAdmin;
+    private javax.swing.JButton botonAdmin;
     private javax.swing.JButton jBotonAccesoCliente;
     private javax.swing.JButton jBotonAdmin;
     private javax.swing.JLabel jCerrarVentana;
     private javax.swing.JPanel jFondoAdmin;
     private javax.swing.JPanel jFondoLogin;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -509,6 +538,7 @@ public class menuMainCajero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
@@ -526,14 +556,12 @@ public class menuMainCajero extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jPass;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPassW;
     private javax.swing.JPanel jTarjetaCliente;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jUserAdmin;
     private javax.swing.JButton jUserValidacion;
     private javax.swing.JLabel jVolver;
     private javax.swing.JLabel jVolverAtras;
+    private javax.swing.JTextField numeroTarjeta;
     // End of variables declaration//GEN-END:variables
 }

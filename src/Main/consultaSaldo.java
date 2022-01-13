@@ -2,9 +2,9 @@ package Main;
 
 import javax.swing.JOptionPane;
 
-public class menuConsultaSaldo extends javax.swing.JFrame {
+public class consultaSaldo extends javax.swing.JFrame {
 
-    public menuConsultaSaldo() {
+    public consultaSaldo() {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -29,7 +29,6 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
         jVolverMenu = new javax.swing.JLabel();
         fondo1 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        fondo = new javax.swing.JButton();
         jUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,7 +61,7 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
         });
         jMenu.add(jMinimizarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("BANCO ROVAN");
         jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 360, 40));
@@ -105,14 +104,14 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
         jFondoCuadrado.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jMenuSaldo.add(jFondoCuadrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 400, 140));
 
-        jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
+        jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-50.png"))); // NOI18N
         jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jVolverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jVolverMenuMouseClicked(evt);
             }
         });
-        jMenuSaldo.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, 30, 30));
+        jMenuSaldo.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 50, 50));
 
         fondo1.setBackground(new java.awt.Color(204, 0, 0));
         fondo1.setForeground(new java.awt.Color(204, 0, 0));
@@ -122,17 +121,10 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
         jMenuSaldo.add(fondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 420, 160));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(204, 0, 0));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("VOLVER...");
-        jMenuSaldo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 70, -1));
-
-        fondo.setBackground(new java.awt.Color(204, 0, 0));
-        fondo.setForeground(new java.awt.Color(204, 0, 0));
-        fondo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        fondo.setBorderPainted(false);
-        fondo.setEnabled(false);
-        jMenuSaldo.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 70, 60));
+        jMenuSaldo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 70, -1));
 
         jUser.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jUser.setForeground(new java.awt.Color(153, 153, 153));
@@ -183,13 +175,13 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuConsultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuConsultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuConsultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuConsultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
@@ -197,7 +189,6 @@ public class menuConsultaSaldo extends javax.swing.JFrame {
     private javax.swing.JLabel Euro;
     private javax.swing.JLabel Saldo;
     private javax.swing.JLabel Tarjeta;
-    private javax.swing.JButton fondo;
     private javax.swing.JButton fondo1;
     private javax.swing.JLabel jCerrarVentana;
     private javax.swing.JLabel jFondoCuadrado;

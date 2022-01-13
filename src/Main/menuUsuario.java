@@ -1,22 +1,52 @@
 package Main;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import javax.swing.*;
+import utils.Slide;
 
-public class menuUsuario extends JFrame {
-    
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-    Date date = new Date();
-    final String mensaje = "Hora actual: ";
-    
+public class menuUsuario extends JFrame implements Runnable {
+
+    private String hora, minutos, seg;
+    private Thread hilo;
+    Movimiento mov;
+
     public menuUsuario() {
         initComponents();
-        setLocationRelativeTo(null);    
-        jHoraFecha.setText(mensaje + formatter.format(date));
+        setLocationRelativeTo(null);
+        Fecha.setText(fecha());
+        hilo = new Thread(this);
+        hilo.start();
+
     }
 
-    
+    private String fecha() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-YYYY");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
+    private void hora() {
+        Calendar calendario = new GregorianCalendar();
+        Date horaActual = new Date();
+        calendario.setTime(horaActual);
+        hora = calendario.get(Calendar.HOUR_OF_DAY) > 9 ? "" + calendario.get(Calendar.HOUR_OF_DAY) : "0" + calendario.get(Calendar.HOUR_OF_DAY);
+        minutos = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE) : "0" + calendario.get(Calendar.MINUTE);
+        seg = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND) : "0" + calendario.get(Calendar.SECOND);
+    }
+
+    public void run() {
+        Thread current = Thread.currentThread();
+        for (int i = 1; i > 0; i++) {
+            if (i > 0) {
+                hora();
+                Hora.setText(hora + ":" + minutos + ":" + seg);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,17 +56,17 @@ public class menuUsuario extends JFrame {
         jMinimizarVentana = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanelUsuario = new javax.swing.JPanel();
+        Fecha = new javax.swing.JLabel();
+        Hora = new javax.swing.JLabel();
         j_RetirarDinero = new javax.swing.JTextField();
         j_IngresarDinero = new javax.swing.JTextField();
         jSacarDinero = new javax.swing.JButton();
         jIngresarDinero = new javax.swing.JButton();
         jUser = new javax.swing.JLabel();
-        jHoraFecha = new javax.swing.JLabel();
-        jPagosImpuestosDevol = new javax.swing.JLabel();
+        jConsultaTarjeta = new javax.swing.JLabel();
         jConsultaSaldo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -51,7 +81,6 @@ public class menuUsuario extends JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        fondo = new javax.swing.JButton();
         fondo1 = new javax.swing.JButton();
         fondo2 = new javax.swing.JButton();
         fondo3 = new javax.swing.JButton();
@@ -65,6 +94,17 @@ public class menuUsuario extends JFrame {
         jMenu.setBackground(new java.awt.Color(204, 0, 0));
         jMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jMenu.setForeground(new java.awt.Color(204, 0, 0));
+        jMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        jMenu.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jMenuMouseDragged(evt);
+            }
+        });
+        jMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuMousePressed(evt);
+            }
+        });
         jMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-cerrar-ventana-50.png"))); // NOI18N
@@ -87,7 +127,7 @@ public class menuUsuario extends JFrame {
         });
         jMenu.add(jMinimizarVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("DialogInput", 1, 36)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("BANCO ROVAN");
         jMenu.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 4, 360, 40));
@@ -98,6 +138,18 @@ public class menuUsuario extends JFrame {
         jPanelUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanelUsuario.setForeground(new java.awt.Color(255, 255, 255));
         jPanelUsuario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Fecha.setBackground(new java.awt.Color(204, 0, 0));
+        Fecha.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        Fecha.setForeground(new java.awt.Color(204, 0, 0));
+        Fecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanelUsuario.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 150, 30));
+
+        Hora.setBackground(new java.awt.Color(204, 0, 0));
+        Hora.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        Hora.setForeground(new java.awt.Color(204, 0, 0));
+        Hora.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jPanelUsuario.add(Hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, 150, 40));
 
         j_RetirarDinero.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         j_RetirarDinero.setForeground(new java.awt.Color(153, 153, 153));
@@ -132,17 +184,17 @@ public class menuUsuario extends JFrame {
         jUser.setText("<USER>");
         jPanelUsuario.add(jUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 230, 30));
 
-        jHoraFecha.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jHoraFecha.setForeground(new java.awt.Color(153, 153, 153));
-        jHoraFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jPanelUsuario.add(jHoraFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 220, 20));
-
-        jPagosImpuestosDevol.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
-        jPagosImpuestosDevol.setForeground(new java.awt.Color(255, 255, 255));
-        jPagosImpuestosDevol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPagosImpuestosDevol.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        jPagosImpuestosDevol.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanelUsuario.add(jPagosImpuestosDevol, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 180, 140));
+        jConsultaTarjeta.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
+        jConsultaTarjeta.setForeground(new java.awt.Color(255, 255, 255));
+        jConsultaTarjeta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jConsultaTarjeta.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jConsultaTarjeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jConsultaTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jConsultaTarjetaMouseClicked(evt);
+            }
+        });
+        jPanelUsuario.add(jConsultaTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 180, 140));
 
         jConsultaSaldo.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
         jConsultaSaldo.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,12 +216,6 @@ public class menuUsuario extends JFrame {
         jLabel8.setText(" €");
         jPanelUsuario.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 40, 50));
 
-        jLabel3.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("y devoluciones");
-        jPanelUsuario.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 200, 50));
-
         jLabel9.setFont(new java.awt.Font("Candara Light", 1, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Importe:");
@@ -186,13 +232,13 @@ public class menuUsuario extends JFrame {
         jLabel7.setForeground(new java.awt.Color(204, 0, 0));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Indique la operación que desea hacer");
-        jPanelUsuario.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 420, -1));
+        jPanelUsuario.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 420, 40));
 
         jLabel12.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Pagos, impuestos");
-        jPanelUsuario.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 200, 50));
+        jLabel12.setText("Consulta Tarjeta");
+        jPanelUsuario.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 160, 40));
 
         jLabel18.setFont(new java.awt.Font("Candara Light", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,20 +256,21 @@ public class menuUsuario extends JFrame {
         jLabel11.setText("Consultar saldo");
         jPanelUsuario.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, 180, 30));
 
-        jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-24.png"))); // NOI18N
+        jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-50.png"))); // NOI18N
+        jVolverMenu.setToolTipText("Volver...");
         jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jVolverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jVolverMenuMouseClicked(evt);
             }
         });
-        jPanelUsuario.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 480, 30, 30));
+        jPanelUsuario.add(jVolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, 50, 50));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(204, 0, 0));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("VOLVER...");
-        jPanelUsuario.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 510, 70, -1));
+        jPanelUsuario.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 510, 60, 30));
 
         jLabel20.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -231,11 +278,11 @@ public class menuUsuario extends JFrame {
         jLabel20.setText("IMPORTE A RETIRAR");
         jPanelUsuario.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 180, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPanelUsuario/icons8-dinero-50 (1).png"))); // NOI18N
-        jPanelUsuario.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 60, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-seguridad-de-la-tarjeta-50.png"))); // NOI18N
+        jPanelUsuario.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 60, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPanelUsuario/icons8-billetera-50 (1).png"))); // NOI18N
-        jPanelUsuario.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, -1));
+        jPanelUsuario.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Candara Light", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,13 +295,6 @@ public class menuUsuario extends JFrame {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         jPanelUsuario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 310, 140));
-
-        fondo.setBackground(new java.awt.Color(204, 0, 0));
-        fondo.setForeground(new java.awt.Color(204, 0, 0));
-        fondo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        fondo.setBorderPainted(false);
-        fondo.setEnabled(false);
-        jPanelUsuario.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 470, 70, 60));
 
         fondo1.setBackground(new java.awt.Color(204, 0, 0));
         fondo1.setForeground(new java.awt.Color(204, 0, 0));
@@ -305,7 +345,7 @@ public class menuUsuario extends JFrame {
 
     private void jConsultaSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConsultaSaldoMouseClicked
         // BOTON CONSULTA DE SALDO.
-        new menuConsultaSaldo().setVisible(true);
+        new consultaSaldo().setVisible(true);
         dispose();
     }//GEN-LAST:event_jConsultaSaldoMouseClicked
 
@@ -314,48 +354,32 @@ public class menuUsuario extends JFrame {
         dispose();
     }//GEN-LAST:event_jVolverMenuMouseClicked
 
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jConsultaTarjetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConsultaTarjetaMouseClicked
+        new consultaTarjeta().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jConsultaTarjetaMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new menuUsuario().setVisible(true);
-            }
-        });
-    }
+    private void jMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuMousePressed
+        mov = new Movimiento(evt);
+    }//GEN-LAST:event_jMenuMousePressed
+
+    private void jMenuMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuMouseDragged
+        int cordX = mov.x;
+        int cordY = mov.y;
+        Point point = MouseInfo.getPointerInfo().getLocation();
+        setLocation(point.x - cordX, point.y - cordY);
+    }//GEN-LAST:event_jMenuMouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton fondo;
+    private javax.swing.JLabel Fecha;
+    private javax.swing.JLabel Hora;
     private javax.swing.JButton fondo1;
     private javax.swing.JButton fondo2;
     private javax.swing.JButton fondo3;
     private javax.swing.JButton fondo4;
     private javax.swing.JLabel jCerrarVentana;
     private javax.swing.JLabel jConsultaSaldo;
-    private javax.swing.JLabel jHoraFecha;
+    private javax.swing.JLabel jConsultaTarjeta;
     private javax.swing.JButton jIngresarDinero;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -369,14 +393,12 @@ public class menuUsuario extends JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jMenu;
     private javax.swing.JLabel jMinimizarVentana;
-    private javax.swing.JLabel jPagosImpuestosDevol;
     private javax.swing.JPanel jPanelUsuario;
     private javax.swing.JButton jSacarDinero;
     private javax.swing.JLabel jUser;
