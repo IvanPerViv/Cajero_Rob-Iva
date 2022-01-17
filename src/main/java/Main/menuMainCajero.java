@@ -124,7 +124,7 @@ public class menuMainCajero extends javax.swing.JFrame {
 
         jCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-cerrar-ventana-50.png"))); // NOI18N
         jCerrarVentana.setToolTipText("Cerrar ventana.");
-        jCerrarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jCerrarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jCerrarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCerrarVentanaMouseClicked(evt);
@@ -134,7 +134,7 @@ public class menuMainCajero extends javax.swing.JFrame {
 
         jMinimizarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-minimizar-la-ventana-50.png"))); // NOI18N
         jMinimizarVentana.setToolTipText("Minimizar ventana.");
-        jMinimizarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMinimizarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMinimizarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMinimizarVentanaMouseClicked(evt);
@@ -169,7 +169,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jUserValidacion.setForeground(new java.awt.Color(204, 0, 0));
         jUserValidacion.setText("IDENTIFICAR");
         jUserValidacion.setBorderPainted(false);
-        jUserValidacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jUserValidacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jUserValidacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUserValidacionActionPerformed(evt);
@@ -242,7 +242,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jBotonAccesoCliente.setText("ACCESO CLIENTES");
         jBotonAccesoCliente.setBorder(null);
         jBotonAccesoCliente.setBorderPainted(false);
-        jBotonAccesoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jBotonAccesoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBotonAccesoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBotonAccesoClienteActionPerformed(evt);
@@ -259,7 +259,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         jBotonAdmin.setText("ADMINISTRADOR");
         jBotonAdmin.setBorder(null);
         jBotonAdmin.setBorderPainted(false);
-        jBotonAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jBotonAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBotonAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBotonAdminActionPerformed(evt);
@@ -350,7 +350,7 @@ public class menuMainCajero extends javax.swing.JFrame {
         botonAdmin.setForeground(new java.awt.Color(204, 0, 0));
         botonAdmin.setText("IDENTIFICAR");
         botonAdmin.setBorderPainted(false);
-        botonAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        botonAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAdminActionPerformed(evt);

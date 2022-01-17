@@ -11,7 +11,7 @@ public class consultaSaldo extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         Saldo.setText(Double.toString(saldo));
         jUser.setText(nombre + " " + apellidos);
-        Tarjeta.setText(tarjeta);
+        Tarjeta.setText("Numero de tarjeta: " + tarjeta);
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.tarjeta = tarjeta;
@@ -36,6 +36,7 @@ public class consultaSaldo extends javax.swing.JFrame {
         fondo1 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jUser = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -83,9 +84,10 @@ public class consultaSaldo extends javax.swing.JFrame {
         jLabel1.setText("EL SALDO ACTUAL DE SU CUENTA");
         jMenuSaldo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 40));
 
-        Tarjeta.setForeground(new java.awt.Color(153, 153, 153));
+        Tarjeta.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        Tarjeta.setForeground(new java.awt.Color(204, 0, 0));
         Tarjeta.setText("TARJETA XXXX-XXXX-XXXX-XXXX");
-        jMenuSaldo.add(Tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 30));
+        jMenuSaldo.add(Tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 230, 30));
 
         Saldo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         Saldo.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,11 +130,14 @@ public class consultaSaldo extends javax.swing.JFrame {
         jLabel17.setText("VOLVER...");
         jMenuSaldo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 70, -1));
 
-        jUser.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jUser.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jUser.setForeground(new java.awt.Color(153, 153, 153));
         jUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jUser.setText("<USER>");
-        jMenuSaldo.add(jUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 230, 30));
+        jMenuSaldo.add(jUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 230, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenesPanelUsuario/icons8-logotipo-mastercard-25.png"))); // NOI18N
+        jMenuSaldo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 30, 30));
 
         getContentPane().add(jMenuSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 380));
 
@@ -159,33 +164,6 @@ public class consultaSaldo extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jVolverMenuMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(consultaSaldo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Euro;
     private javax.swing.JLabel Saldo;
@@ -196,6 +174,7 @@ public class consultaSaldo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jMenu;
     private javax.swing.JPanel jMenuSaldo;
     private javax.swing.JLabel jMinimizarVentana;

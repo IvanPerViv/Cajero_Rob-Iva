@@ -9,11 +9,11 @@ import utils.Slide;
 
 public class menuUsuario extends JFrame implements Runnable {
 
-    private String hora, minutos, seg;
-    private Thread hilo;
-    Movimiento mov;
-    private String tarjeta;
-    private String nombre, apellidos;
+    protected String hora, minutos, seg;
+    protected Thread hilo;
+    protected Movimiento mov;
+    protected String tarjeta;
+    protected String nombre, apellidos;
 
     public menuUsuario(String nombre, String apellidos, String tarjeta) {
         initComponents();
@@ -116,7 +116,7 @@ public class menuUsuario extends JFrame implements Runnable {
 
         jCerrarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-cerrar-ventana-50.png"))); // NOI18N
         jCerrarVentana.setToolTipText("Cerrar ventana.");
-        jCerrarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jCerrarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jCerrarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jCerrarVentanaMouseClicked(evt);
@@ -126,7 +126,7 @@ public class menuUsuario extends JFrame implements Runnable {
 
         jMinimizarVentana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-minimizar-la-ventana-50.png"))); // NOI18N
         jMinimizarVentana.setToolTipText("Minimizar ventana");
-        jMinimizarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jMinimizarVentana.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMinimizarVentana.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMinimizarVentanaMouseClicked(evt);
@@ -174,7 +174,7 @@ public class menuUsuario extends JFrame implements Runnable {
         jSacarDinero.setForeground(new java.awt.Color(204, 0, 0));
         jSacarDinero.setText("Retirar dinero");
         jSacarDinero.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null));
-        jSacarDinero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSacarDinero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSacarDinero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSacarDineroActionPerformed(evt);
@@ -187,7 +187,7 @@ public class menuUsuario extends JFrame implements Runnable {
         jIngresarDinero.setForeground(new java.awt.Color(204, 0, 0));
         jIngresarDinero.setText("Ingresar Dinero");
         jIngresarDinero.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, null));
-        jIngresarDinero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jIngresarDinero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jIngresarDinero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jIngresarDineroActionPerformed(evt);
@@ -195,7 +195,7 @@ public class menuUsuario extends JFrame implements Runnable {
         });
         jPanelUsuario.add(jIngresarDinero, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 140, 30));
 
-        jUser.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jUser.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jUser.setForeground(new java.awt.Color(153, 153, 153));
         jUser.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jUser.setText("<USER>");
@@ -205,7 +205,7 @@ public class menuUsuario extends JFrame implements Runnable {
         jConsultaTarjeta.setForeground(new java.awt.Color(255, 255, 255));
         jConsultaTarjeta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jConsultaTarjeta.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        jConsultaTarjeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jConsultaTarjeta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jConsultaTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jConsultaTarjetaMouseClicked(evt);
@@ -217,7 +217,7 @@ public class menuUsuario extends JFrame implements Runnable {
         jConsultaSaldo.setForeground(new java.awt.Color(255, 255, 255));
         jConsultaSaldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jConsultaSaldo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        jConsultaSaldo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jConsultaSaldo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jConsultaSaldo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jConsultaSaldoMouseClicked(evt);
@@ -275,7 +275,7 @@ public class menuUsuario extends JFrame implements Runnable {
 
         jVolverMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagenesMenuCajero/icons8-volver-50.png"))); // NOI18N
         jVolverMenu.setToolTipText("Volver...");
-        jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jVolverMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jVolverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jVolverMenuMouseClicked(evt);
@@ -362,13 +362,10 @@ public class menuUsuario extends JFrame implements Runnable {
 
     private void jConsultaSaldoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConsultaSaldoMouseClicked
         // BOTON CONSULTA DE SALDO.
-        //PASAR EL USER Y TAJERTA
-        ConsultasBbdd a = new ConsultasBbdd();
-        Cuenta b = a.getCuentaTarjeta(tarjeta);
-
-        Tarjeta t = a.getTarjeta(tarjeta);
-
-        new consultaSaldo(b.getSaldo(), nombre, apellidos, t.numero_tarjeta).setVisible(true);
+        ConsultasBbdd objConsultaBbdd = new ConsultasBbdd();
+        Cuenta objetCuenta = objConsultaBbdd.getCuentaTarjeta(tarjeta);
+        Tarjeta objTarjeta = objConsultaBbdd.getTarjeta(tarjeta);
+        new consultaSaldo(objetCuenta.getSaldo(), nombre, apellidos, objTarjeta.numero_tarjeta).setVisible(true);
         dispose();
     }//GEN-LAST:event_jConsultaSaldoMouseClicked
 
@@ -378,7 +375,12 @@ public class menuUsuario extends JFrame implements Runnable {
     }//GEN-LAST:event_jVolverMenuMouseClicked
 
     private void jConsultaTarjetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jConsultaTarjetaMouseClicked
-        new consultaTarjeta(nombre, apellidos, tarjeta).setVisible(true);
+        //BOTON CONSULTA TARJETA
+        ConsultasBbdd objConsultaBbdd = new ConsultasBbdd();
+        Tarjeta objTarjeta = objConsultaBbdd.getTarjeta(tarjeta);
+            String cvsTarjeta = objTarjeta.getCVS();
+            String fechaCaducidad = objTarjeta.getFecha_cad();
+        new consultaTarjeta(nombre, apellidos, tarjeta, cvsTarjeta, fechaCaducidad).setVisible(true);
         dispose();
     }//GEN-LAST:event_jConsultaTarjetaMouseClicked
 
@@ -394,6 +396,7 @@ public class menuUsuario extends JFrame implements Runnable {
     }//GEN-LAST:event_jMenuMouseDragged
 
     private void jSacarDineroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSacarDineroActionPerformed
+        //SACAR DINERO
         ConsultasBbdd cbd = new ConsultasBbdd();
         Cuenta cuenta = cbd.getCuentaTarjeta(tarjeta); //con esto sabemos la cuenta a la que pertenece el saldo.
         double dineroSacar = Double.parseDouble(j_RetirarDinero.getText());
@@ -406,6 +409,7 @@ public class menuUsuario extends JFrame implements Runnable {
     }//GEN-LAST:event_jSacarDineroActionPerformed
 
     private void jIngresarDineroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIngresarDineroActionPerformed
+        //RETIRAR DINERO
         ConsultasBbdd cbd = new ConsultasBbdd();
         Cuenta cuenta = cbd.getCuentaTarjeta(tarjeta); //con esto sabemos la cuenta a la que pertenece el saldo.
         double dineroIngresar = Double.parseDouble(j_IngresarDinero.getText());

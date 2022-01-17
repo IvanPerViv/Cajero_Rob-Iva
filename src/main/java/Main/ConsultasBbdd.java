@@ -5,17 +5,10 @@
  */
 package Main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author rober
- */
 public class ConsultasBbdd {
 
     private Connection con;

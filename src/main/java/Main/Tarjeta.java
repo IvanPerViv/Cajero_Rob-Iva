@@ -1,20 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
 import java.util.Date;
 
-/**
- *
- * @author rober
- */
 public class Tarjeta {
-    String numero_tarjeta;
-    String CVS;
-    String fecha_cad;
+    String numero_tarjeta, CVS, fecha_cad;
 
     public Tarjeta (String numTarjeta, String cvs, String fechaCad){
         numero_tarjeta = numTarjeta;
@@ -22,18 +11,25 @@ public class Tarjeta {
         fecha_cad = fechaCad;
     }
 
-    public void setCVS(String CVS) {
-        this.CVS = CVS;
+    public void setNumero_tarjeta(String numero_tarjeta) {
+        this.numero_tarjeta = numero_tarjeta;
     }
 
-    public void setFecha_cad(String fecha_cad) {
-        this.fecha_cad = fecha_cad;
+    public String getNumero_tarjeta() {
+        return numero_tarjeta;
+    }
+    
+    public void setCVS(String CVS) {
+        this.CVS = CVS;
     }
 
     public String getCVS() {
         return CVS;
     }
 
+    public void setFecha_cad(String fecha_cad) {
+        this.fecha_cad = fecha_cad;
+    }
     public String getFecha_cad() {
         return fecha_cad;
     }
